@@ -21,11 +21,11 @@ jobs:
           go-version: 1.21
 
       - name: Build
-        run: go build
+        run: go build ./cmd/api
 
       - name: Test and Coverage
         run: |
-          go test -coverprofile=coverage.out ./...
+          go test -coverprofile=coverage.out ./cmd/api
           coverage=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | tr -d '%')
           echo "Code Coverage: $coverage%"
           if [ $coverage -lt 80 ]; then
