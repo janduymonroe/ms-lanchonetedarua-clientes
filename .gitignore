@@ -1,0 +1,51 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Compiled source code
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.out
+*.ko
+*.map
+*.app
+*.pexe
+*.pfexe
+*.pgm
+*.prof
+*.dll
+*.exp
+*.pdb
+*.idb
+*.lib
+
+# Compiled Go files
+*.test
+*.prof
+
+# Compiled Golang binaries
+bin/
+
+# Ignore the go test cache directory
+*.test-cache/
+
+# Ignore the Air binary
+air
+
+# Ignore the VS Code folder
+.vscode/
+.idea/
+
+# Ignore system-specific files
+Thumbs.db
+.DS_Store
+ehthumbs.db
+
+# Ignore build and temporary folders
+build/
+tmp/
+temp/

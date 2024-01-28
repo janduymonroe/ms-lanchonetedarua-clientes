@@ -1,0 +1,42 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build
+        run: go build
+
+      - name: Test and Coverage
+        run: |
+          go test -coverprofile=coverage.out ./...
+          coverage=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | tr -d '%')
+          echo "Code Coverage: $coverage%"
+          if [ $coverage -lt 80 ]; then
+            echo "Code coverage is below 80%. Exiting."
+            exit 1
+          fi
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
